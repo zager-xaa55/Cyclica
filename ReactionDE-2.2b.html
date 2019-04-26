@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<title>reactionDE test build 25Apr24-2.2b</title>
+<title>reactionDE test build 25Apr19-2.3</title>
 <style>
   //fuck, doesn't work...
   @keyframes buttonClick {
@@ -53,7 +53,7 @@
     left: 0;
     width: 800px;
     height: 50px;
-    z-index: 10;
+    z-index: 20;
   }
 
   #button {
@@ -69,6 +69,7 @@
   }
 
   .window {
+    position:relative;
     background-color: #FEFEFE;
     width: 660px;
     height: 400px;
@@ -95,7 +96,7 @@
 <html>
 
 <body id="Desktop">
-  <p class="debug" id="debug">reactionDE test build 25Apr24-2.2b</p>
+  <p class="debug" id="debug">reactionDE test build 25Apr19-2.3</p>
   <p id="consoleHTML5" style="margin-top: 0px; width:400px;" class="debug">this is a debug window- it's here just to display info!</p>
 
   <div id="dock" class="center-div">
@@ -152,11 +153,11 @@
       var newFrame = document.createElement("div");
       //makes a div, the start of a window frame
       var windowID = "window" + windowNumbers.toString(); //string for ID
-      newFrame.id = windowID;//newFrame.id = windowID; //setting it as the element's id
+      newFrame.id = windowID; //newFrame.id = windowID; //setting it as the element's id
       log(newFrame.id); //works so far
       newFrame.classList.add("window"); //set css using classID
       Desktop.appendChild(newFrame);
-      makeDraggable("#"+newFrame.id, "#Desktop");
+      makeDraggable("#" + newFrame.id, "#Desktop");
       newFrame.innerHTML = newFrame.id;
 
     }
@@ -167,9 +168,13 @@
     }
 
     function moveClassToBottom(classID) {
-      //make sure you follow classID = '.Foo' in CSS
+      /*//make sure you follow classID = '.Foo' in CSS
       var classToMove = document.querySelectorAll(classID);
-      classToMove.style.zIndex = "0";
+      classToMove.style.zIndex = "0";*/
+      //shit code ^^ only moved a single element. This should allow us to move multiple.
+      for (const element of document.querySelectorAll(".window")) {
+        element.style.zIndex = 0;
+      }
     }
 
     function makeDraggable(target, parent) {
@@ -225,7 +230,7 @@
       function setTranslate(xPos, yPos, el) {
         el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
         moveClassToBottom(".window");
-        dragItem.style.zIndex = "1";
+        dragItem.style.zIndex = "10";
       }
 
       function dragEnd(e) {
