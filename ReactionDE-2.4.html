@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<title>reactionDE test build 25Apr19-2.3</title>
+<title>reactionDE test build 28Apr19-2.4</title>
 <style>
   @keyframes buttonClick {
     from {
@@ -11,13 +11,22 @@
     }
   }
 
-
   body {
     color: grey;
     font-family: roboto;
     font-weight: lighter;
     padding: 40px;
     background: url("https://9to5google.com/wp-content/uploads/sites/4/2018/01/background1.jpg?quality=82&strip=all");
+  }
+  .resizer {
+    width: 10px;
+    height: 10px;
+    background: #EEE;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    cursor: se-resize;
+    border-radius: 2px;
   }
 
   .debug {
@@ -77,8 +86,6 @@
     padding-top: 10px;
     font-size: 20px;
     box-shadow: -2px 2px 15px rgba(0, 0, 0, 0.2);
-    resize: both;
-    overflow: auto;
   }
 
   .closeBtn {
@@ -96,7 +103,7 @@
 <html>
 
 <body id="Desktop">
-  <p class="debug" id="debug">reactionDE test build 25Apr19-2.3</p>
+  <p class="debug" id="debug">reactionDE test build 28Apr19-2.4</p>
   <p id="consoleHTML5" style="margin-top: 0px; width:400px;" class="debug">this is a debug window- it's here just to display info!</p>
 
   <div id="dock" class="center-div">
@@ -109,6 +116,7 @@
   </div>
 
 <!-- leaving on here for reference and nostalgia
+
   <div id="window0" class="window">Window
     <button class="closeBtn" onclick="closeWindow()">x</button>
     <div id="activity">
@@ -159,14 +167,28 @@
       var parentFrame = document.querySelector("#"+newFrame.id);
       var closeBtn = document.createElement("button");
       closeBtn.classList.add("closeBtn");
-      closeBtn.innerHTML = "close";
+      closeBtn.innerHTML = "x";
       closeBtn.onclick = function() {
         var parent = document.getElementById("Desktop");
         var windowFrame = document.getElementById(newFrame.id); //kind of a bad system - broken atm
         parent.removeChild(windowFrame);
+        windowNumbers = windowNumbers - 1;
       }
       parentFrame.appendChild(closeBtn);
-
+      //set up a resizer on the corner
+      var resizer = document.createElement("div");
+      var startResizeX, startResizeY, startWidth, startHeight;
+      resizer.classList.add("resizer");
+      parentFrame.appendChild(resizer);
+      /*resizer.addEventListener('mousedown', initDrag, false);
+      function initDrag( e ) {
+        startResizeX = e.clientX;
+        startResizeY = e.clientY;
+        startWidth =
+      }
+      trying to adapt from 'http://jsfiddle.net/MissoulaLorenzo/gfn6ob3j/'
+      more work is fucking needed
+      */
     }
 
     function getText(stringIn) {
@@ -178,7 +200,7 @@
       /*//make sure you follow classID = '.Foo' in CSS
       var classToMove = document.querySelectorAll(classID);
       classToMove.style.zIndex = "0";*/
-      //shit code ^^ only moved a single element. This should allow us to move multiple.
+      //only moved a single element. This should allow us to move multiple.
       for (const element of document.querySelectorAll(".window")) {
         element.style.zIndex = 0;
       }
