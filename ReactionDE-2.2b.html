@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <title>reactionDE test build 25Apr19-2.3</title>
 <style>
-  //fuck, doesn't work...
+  //fuck, doesnt work...
   @keyframes buttonClick {
     from {
       background-color: grey
@@ -69,7 +69,7 @@
   }
 
   .window {
-    position:relative;
+    position: relative;
     background-color: #FEFEFE;
     width: 660px;
     height: 400px;
@@ -77,11 +77,12 @@
     padding-left: 20px;
     padding-top: 10px;
     font-size: 20px;
-    box-shadow: 1px 1px 5px black;
-    //resizing doesn't work because of touchlistener :/
+    box-shadow: -2px 2px 15px rgba(0, 0, 0, 0.2);
+    resize: both;
+    overflow: auto;
   }
 
-  #closeBtn {
+  .closeBtn {
     background-color: #FEFEFE;
     border-radius: 50%;
     color: #AAA;
@@ -101,20 +102,22 @@
 
   <div id="dock" class="center-div">
     <span id="btn1parent">
-      <button id="button" onclick="greeter()">Hello</button>
+      <button id="button" onclick="greeter()">greeter</button>
       <button id="button" onclick="openWindow()">Open Window</button>
-      <button id="button" onclick="getText('how about this')">getText</button>
-      <button id="button" onClick="makeDraggable('#window0','#Desktop')">Start windowMoveService</button>
+      <button id="button" onclick="getText('console is working here')">consoleLog</button>
+      <!-- no longer needed :) <button id="button" onClick="makeDraggable('#window0','#Desktop')">Start windowMoveService</button> -->
     </span>
   </div>
 
+<!-- leaving on here for reference and nostalgia
   <div id="window0" class="window">Window
-    <button id="closeBtn" onclick="closeWindow()">x</button>
+    <button class="closeBtn" onclick="closeWindow()">x</button>
     <div id="activity">
-      <!-- mainActivity (usually noVNC or nativeScript) goes here -->
+       mainActivity (usually noVNC or nativeScript) goes here
 
     </div>
   </div>
+-->
 
   <script>
     //temportary stuff for debug;
@@ -128,12 +131,6 @@
 
     function greeter() {
       alert("Welcome, JS is working here!");
-    }
-
-    function closeWindow() {
-      var parent = document.getElementById("Desktop");
-      var windowFrame = document.getElementById("window0"); //kind of a bad system - broken atm
-      parent.removeChild(windowFrame);
     }
 
     /*function openWindow() {
@@ -158,7 +155,18 @@
       newFrame.classList.add("window"); //set css using classID
       Desktop.appendChild(newFrame);
       makeDraggable("#" + newFrame.id, "#Desktop");
-      newFrame.innerHTML = newFrame.id;
+      newFrame.innerHTML = newFrame.id; //set windowName
+      //let's set up a close button
+      var parentFrame = document.querySelector("#"+newFrame.id);
+      var closeBtn = document.createElement("button");
+      closeBtn.classList.add("closeBtn");
+      closeBtn.innerHTML = "close";
+      closeBtn.onclick = function() {
+        var parent = document.getElementById("Desktop");
+        var windowFrame = document.getElementById(newFrame.id); //kind of a bad system - broken atm
+        parent.removeChild(windowFrame);
+      }
+      parentFrame.appendChild(closeBtn);
 
     }
 
@@ -208,6 +216,7 @@
         if (e.target == dragItem) {
           active = true;
         }
+        moveClassToBottom(".window");
       }
 
       function drag(e) {
@@ -229,7 +238,6 @@
 
       function setTranslate(xPos, yPos, el) {
         el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
-        moveClassToBottom(".window");
         dragItem.style.zIndex = "10";
       }
 
