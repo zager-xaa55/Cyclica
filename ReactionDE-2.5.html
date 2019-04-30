@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<title>reactionDE test build 28Apr19-2.4</title>
+<title>reactionDE test build 30Apr19-2.5</title>
 <style>
   @keyframes buttonClick {
     from {
@@ -103,7 +103,7 @@
 <html>
 
 <body id="Desktop">
-  <p class="debug" id="debug">reactionDE test build 28Apr19-2.4</p>
+  <p class="debug" id="debug">reactionDE test build 30Apr19-2.5</p>
   <p id="consoleHTML5" style="margin-top: 0px; width:400px;" class="debug">this is a debug window- it's here just to display info!</p>
 
   <div id="dock" class="center-div">
@@ -147,7 +147,7 @@
       var desktop = document.getElementById("Desktop");
       desktop.appendChild(newFrame);
       makeDraggable("#windowAdded", "#Desktop");
-    }*/
+    }*/ //deprecated, keeping it in to make it look like I wrote more code than I actually did
 
     function openWindow() {
       windowNumbers = windowNumbers + 1;
@@ -179,17 +179,40 @@
       var resizer = document.createElement("div");
       var startResizeX, startResizeY, startWidth, startHeight;
       resizer.classList.add("resizer");
+      //TODO: Add makeResizeable(resizer, newFrame) and dependency code
+      makeResizeable(newFrame, resizer)
       parentFrame.appendChild(resizer);
-      /*resizer.addEventListener('mousedown', initDrag, false);
+    }
+
+
+    function makeResizeable(resizeable, resizer) {
+      var resizeable = resizeable; //should be active window
+      var resizer = resizer; //should be resizer within window
+      var startResizeX, startResizeY, startWidth, startHeight;
+      resizer.addEventListener('mousedown', initDrag, false);
+      //initDrag
       function initDrag( e ) {
         startResizeX = e.clientX;
         startResizeY = e.clientY;
-        startWidth =
+        //set starting values
+        var positionInfo = resizeable.getBoundingClientRect(); //object holds data for w/h
+        startWidth = positionInfo.width;
+        startHeight = positionInfo.height;
+        document.documentElement.addEventListener('mousemove', doDrag, false);
+        document.documentElement.addEventListener('mouseup', stopDrag, false);
       }
-      trying to adapt from 'http://jsfiddle.net/MissoulaLorenzo/gfn6ob3j/'
-      more work is fucking needed
-      */
+      function doDrag(e) {
+        resizeable.style.width = (startWidth + e.clientX - startResizeX) + 'px';
+        resizeable.style.height = (startHeight + e.clientY - startResizeY) + 'px';
+        //resizeable should work, might fuck up because of DOM syntax
+      }
+      function stopDrag(e) {
+        document.documentElement.removeEventListener('mousemove', doDrag, false);
+        document.documentElement.removeEventListener('mouseup', stopDrag, false);
+      }
+
     }
+
 
     function getText(stringIn) {
       var consoleHTML5 = document.getElementById("consoleHTML5");
@@ -273,5 +296,3 @@
   </script>
 
 </body>
-
-</html>
