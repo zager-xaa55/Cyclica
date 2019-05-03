@@ -1,0 +1,34 @@
+<html>
+<head>
+  <title>Cyclica Desktop</title>
+<head>
+<body style="margin: 0; padding: 0; border: 0;">
+  <iframe id="frame" srcdoc="<html><body><h1>Loading.... Please wait.</h1></body></html>" style="width: 100%; height: 100%; top: 0; left: 0; border: 0; margin: 0; padding: 0;"></iframe>
+  <script>
+  var frame = document.getElementById("frame");
+  function changeFrame(html) {
+    frame.srcdoc = html;
+  }
+  window.onresize = function() {
+    frame.style.width = window.width;
+    frame.style.height = window.height;
+  }
+  function httpGet(theUrl)
+  {
+    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp=new XMLHttpRequest();
+    }
+    else {// code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function(){
+      if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+        changeFrame(xmlhttp.responseText);
+      }
+    }
+    xmlhttp.open("GET", theUrl, false);
+    xmlhttp.send();    
+  }
+  httpGet("https://raw.githubusercontent.com/zager-xaa55/Cyclica/master/ReactionDE-2.5.html");
+  </script>
+</body>
