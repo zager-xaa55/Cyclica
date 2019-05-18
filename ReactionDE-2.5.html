@@ -108,6 +108,7 @@
 
   <div id="dock" class="center-div">
     <span id="btn1parent">
+      <button id="button" onclick="drawRect()"> LAUNCH </button>
       <button id="button" onclick="greeter()">greeter</button>
       <button id="button" onclick="openWindow()">Open Window</button>
       <button id="button" onclick="getText('console is working here')">consoleLog</button>
@@ -140,6 +141,13 @@
       alert("Welcome, JS is working here!");
     }
 
+    function drawRect() {
+      //simple way to work with rects bc I am lazy, will probably never use again :D
+      shape = document.createElement("div");
+      shape.classList.add("window");
+      document.appendChild(shape);
+    }
+
     /*function openWindow() {
       var newFrame = document.createElement("div");
       newFrame.classList.add("window");
@@ -162,7 +170,8 @@
       newFrame.classList.add("window"); //set css using classID
       Desktop.appendChild(newFrame);
       makeDraggable("#" + newFrame.id, "#Desktop");
-      newFrame.innerHTML = newFrame.id; //set windowName
+      //newFrame.innerHTML = newFrame.id; //set windowName
+      newFrame.innerHTML = "Application"
       //let's set up a close button
       var parentFrame = document.querySelector("#"+newFrame.id);
       var closeBtn = document.createElement("button");
