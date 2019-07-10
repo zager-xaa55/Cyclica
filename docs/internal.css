@@ -1,0 +1,76 @@
+body {
+  background-color: lightblue;
+  margin: 0;
+}
+
+@keyframes reduceWidth {
+    from {width: 100%;}
+    to {width: 50%;}
+}
+@keyframes fadeIn {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+
+
+#desk {
+  height: 100vh;
+  width: 100vw;
+  margin: auto;
+  padding: 20px;
+  max-width: 100%;
+  max-height: 100%;
+  box-sizing: border-box;
+
+}
+
+.frame {
+  margin: auto;
+  position: sticky;
+  background-color:white;
+  height: 95%;
+  width: 100%;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: width .3s, height .3s;
+  animation: fadeIn .5s;
+}
+#dock {
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:10;
+  height: 38px;
+  background-color: black;
+  padding: 0px;
+  border-radius: 0px;
+}
+#stasis {
+  position: absolute;
+  left: 0;
+  transition: opacity .3s ease-in-out;
+  opacity: 1;
+}
+#stasis:hover{
+  opacity: 0;
+}
+
+#closeActive {
+  position: absolute;
+  left: 42;
+}
+
+#closeStasis {
+  position: absolute;
+  left: 42;
+  transition: opacity .3s ease-in-out;
+  opacity: 1;
+}
+#closeStasis:hover {
+  opacity: 0;
+}
