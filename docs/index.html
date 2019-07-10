@@ -1,34 +1,83 @@
+<!DOCTYPE html>
 <html>
-<head>
-  <title>Cyclica Desktop</title>
-<head>
-<body style="margin: 0; padding: 0; border: 0;">
-  <iframe id="frame" srcdoc="<html><body><h1>Loading.... Please wait.</h1></body></html>" style="width: 100%; height: 100%; top: 0; left: 0; border: 0; margin: 0; padding: 0;"></iframe>
-  <script>
-  var frame = document.getElementById("frame");
-  function changeFrame(html) {
-    frame.srcdoc = html;
-  }
-  window.onresize = function() {
-    frame.style.width = window.width;
-    frame.style.height = window.height;
-  }
-  function httpGet(theUrl)
-  {
-    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-      xmlhttp=new XMLHttpRequest();
-    }
-    else {// code for IE6, IE5
-      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xmlhttp.onreadystatechange=function(){
-      if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-        changeFrame(xmlhttp.responseText);
-      }
-    }
-    xmlhttp.open("GET", theUrl, false);
-    xmlhttp.send();    
-  }
-  httpGet("https://raw.githubusercontent.com/zager-xaa55/Cyclica/master/ReactionDE-2.5.html");
-  </script>
+
+<link rel="stylesheet" type="text/css" href="internal.css">
+
+<body>
+  <div id="desk">
+
+
+
+  </div>
+<!--dock, no shit -->
+  <div id="dock">
+    <img id="active" src="res/icons/plus-active.png" onclick="newPane()"></img>
+    <img  id="stasis" src="res/icons/plus.png" onclick="newPane()"></img>
+
+    <img id="closeActive" src="res/icons/close-active.png"></img>
+    <img id="closeStasis" src="res/icons/close.png"></img>
+  </div>
+
 </body>
+
+<!--pasted code from ui.js-->
+<!-- honestly it's lighter and easier than having to link everything up when calling functions :p -->
+<script type="text/javascript">
+      //doing stuff
+      var taskCount = 0;
+      function newPane() {
+      //initialize parent var
+      desk = document.querySelector("#desk");
+
+        if(taskCount <= 0) {
+          newFirstPane();
+        }
+        else if (taskCount == 1){
+          taskCount=taskCount+1;
+          //set and resize previous frame
+          frame1 = document.querySelector("#"+taskName);
+          frame1.style.width = "49%";
+          frame1.style.float="left";
+          //create and size new frame
+          frame2 = document.createElement("div");
+          frame2.classList.add("frame");
+          desk.appendChild(frame2);
+          frame2.style.width = "49%";
+          frame2.style.float="right";
+          frame2.id = "frame2";
+
+
+        //user adds a third window. I'm so giddy to see this work with android apps!!
+        }
+        else if (taskCount == 2) {
+          taskCount=taskCount+1;
+          //select and resize rightmost window
+          frame2 = document.querySelector("#frame2");
+          frame2.style.height = "46.5%";
+          frame2.style["margin-bottom"]="1%";
+          //return;
+          //create and size frame3
+          frame3 = document.createElement("div");
+          frame3.classList.add("frame");
+          frame3.style.position="relative";
+          frame3.style.height="46.5%";
+          frame3.style.width="49%";
+          frame3.style.float="right";
+          frame3.style["margin-top"]="1%";
+          //frame3.style.bottom="58";
+          frame3.style.background="grey";
+          desk.appendChild(frame3);
+          frame3.id = "frame3";
+        }
+      }
+      function newFirstPane() {
+        taskCount = taskCount + 1;
+        taskName = "frame" + taskCount.toString();
+        //alert(taskName);
+        desk = document.querySelector("#desk");
+        frame1 = document.createElement("div");
+        frame1.classList.add("frame");
+        frame1.id=taskName;
+        desk.appendChild(frame1);
+      }
+</script>
