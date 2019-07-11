@@ -1,0 +1,14 @@
+now that we have a decent windowing system, it's time to focus on the main event: tunneling a framebuffer to the div's with novnc.
+TODO 1: add noVNC frames into Cyclica UI
+2: establish a port forwarded connection to the server (ie. fuck localhost)
+3: speed up graphics by building virtualgl for chroot (chrooted environment not necessary, just how i set up my distro)\
+4: create new chroot with modded xfce and dependencies, build rom
+5: polish serverside UI in Xfce
+6: Polish Clientside UI (gestures, window resizing)
+7: publish and release
+8: kickstarter funded cyclica books?
+9: (in thanos voice) 
+
+/ /  f i n a l l y,  I  s h a l l   r e s t ,
+a n d  w a t c h   t h e   s u n  r i s e   
+o n  a  g r e a t f u l  u n i v e r s e . / /  
